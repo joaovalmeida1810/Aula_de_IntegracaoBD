@@ -11,14 +11,15 @@ import java.sql.ResultSet;
 
 public class EmpregadoDAO {
 
-    private String url = "jdbc:mysql://localhost:3306/empresa";
-    private String usuario = "root";
-    private String senha = "";
+    private String url
+            = "jdbc:mysql://localhost:3306/empresa";
+    private String usuario = "aluno_BD";
+    private String senha = "1234";
 
     public Connection conectar() {
         try {
-
-            Connection conexao = DriverManager.getConnection(url, usuario, senha);
+            Connection conexao
+                    = DriverManager.getConnection(url, usuario, senha);
             return conexao;
         } catch (SQLException sqlex) {
             System.out.println(sqlex.getMessage());
@@ -28,23 +29,22 @@ public class EmpregadoDAO {
 
     public void desconectar(Connection conexao) {
         try {
-            if (conexao != null && !conexao.isClosed()) {
+            if(conexao != null && !conexao.isClosed()){
                 conexao.close();
             }
-
         } catch (SQLException sqlex) {
             System.out.println(sqlex.getMessage());
         }
-
     }
 
-    public List<Empregado> buscarTodos() throws SQLException {
+    public List<Empregado> buscarTodos()
+            throws SQLException{
         List<Empregado> empregados = new ArrayList<>();
         Connection conexao = conectar();
         String sql = "SELECT * FROM empregado";
         PreparedStatement ps = conexao.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
+        while(rs.next()){
             int codigo = rs.getInt("codigo");
             String nome = rs.getString("nome");
             double salario = rs.getDouble("salario");
@@ -55,9 +55,10 @@ public class EmpregadoDAO {
         return empregados;
     }
 
-    public void inserir(Empregado empregado) throws SQLException {
+    public void inserir(Empregado empregado)
+            throws SQLException{
         Connection conexao = conectar();
-        String sql = "INSERT INTO empregado  VALUES (?, ?, ?)";
+        String sql = "INSERT INTO empregado VALUES (?, ?, ?)";
         PreparedStatement ps = conexao.prepareStatement(sql);
         ps.setInt(1, empregado.getCodigo());
         ps.setString(2, empregado.getNome());
@@ -65,32 +66,43 @@ public class EmpregadoDAO {
         ps.executeUpdate();
         desconectar(conexao);
     }
-    public void alterarPorCodigo(Empregado empregado) throws SQLException{
+
+    public void alterarPorCodigo(Empregado empregado)
+            throws SQLException{
         Connection conexao = conectar();
-        String sql = "UPDATE empregado SET nome = ?," + "salario = ? WHERE codigo = ?";
-        PreparedStatement ps = conexao.prepareStatement(sql);
-        ps.setInt(1, empregado.getCodigo());
-        ps.setString(2, empregado.getNome());
-        ps.setDouble(3, empregado.getSalario());
+        String sql = "UPDATE empregado SET nome = ?, "
+                + "salario = ? WHERE codigo = ?";
+        PreparedStatement ps =
+                conexao.prepareStatement(sql);
+        ps.setString(1, empregado.getNome());
+        ps.setDouble(2, empregado.getSalario());
+        ps.setInt(3, empregado.getCodigo());
         ps.executeUpdate();
         desconectar(conexao);
     }
-    public void excluir(int codigo) throws SQLException{
+
+    public void excluirPorCodigo(int codigo)
+            throws SQLException {
         Connection conexao = conectar();
-        String sql = "DELETE FROM empregado WHERE codigo = ?";
-        PreparedStatement ps = conexao.prepareStatement(sql);
+        String sql = "DELETE FROM empregado "
+                + "WHERE codigo = ?";
+        PreparedStatement ps =
+                conexao.prepareStatement(sql);
         ps.setInt(1, codigo);
         ps.executeUpdate();
         desconectar(conexao);
     }
-    public Empregado buscarPorCodigo(int codigo) throws SQLException{
+
+    public Empregado buscarPorCodigo(int codigo)
+            throws SQLException{
         Empregado e = null;
         Connection conexao = conectar();
-        String sql = "SELECT * FROM empregado WHERE codigo = ?";
-        PreparedStatement ps = conexao.prepareStatement(sql);
+        String sql = "SELECT * FROM empregado "
+                + "WHERE codigo = ?";
+        PreparedStatement ps =
+                conexao.prepareStatement(sql);
         ps.setInt(1, codigo);
         ResultSet rs = ps.executeQuery();
-        ps.executeUpdate();
         if(rs.next()){
             String nome = rs.getString("nome");
             double salario = rs.getDouble("salario");
@@ -99,7 +111,5 @@ public class EmpregadoDAO {
         desconectar(conexao);
         return e;
     }
-
 }
-
 

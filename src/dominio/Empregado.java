@@ -1,12 +1,12 @@
 package dominio;
 
 public class Empregado {
-
     private int codigo;
     private String nome;
     private double salario;
 
-    public Empregado(int codigo, String nome, double salario) {
+    public Empregado(int codigo,
+                     String nome, double salario) {
         this.codigo = codigo;
         this.nome = nome;
         this.salario = salario;
@@ -38,6 +38,10 @@ public class Empregado {
 
     @Override
     public String toString() {
-        return "Empregado{" + "codigo=" + codigo + ", nome=" + nome + ", salario=" + salario + '}';
+        return "codigo=" + codigo
+                + ", nome=" + nome
+                + ", salario=" + salario;
     }
+
+
 }

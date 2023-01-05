@@ -7,96 +7,103 @@ import java.util.Scanner;
 
 public class AulaIntegracaoBDm {
 
-    private static EmpregadoNegocio empregadoNegocio = new EmpregadoNegocio();
+    private static EmpregadoNegocio empregadoNegocio
+            = new EmpregadoNegocio();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opcao = 0;
         do {
-            System.out.println("\nMENU DE OPÇOES");
-            System.out.println(" 0 - Encerrar app");
-            System.out.println(" 1- Listar todos os empregados");
-            System.out.println(" 2- Inserir empregado");
-            System.out.println("3 - Alterar empregado");
-            System.out.println("4- excluir empregado");
+            System.out.println("\nMENU DE OPÇÕES");
+            System.out.println("0- Encerrar app");
+            System.out.println("1- Listar todos empregados");
+            System.out.println("2- Inserir empregado");
+            System.out.println("3- Alterar empregado");
+            System.out.println("4- Excluir empregado");
             System.out.println("5- Buscar um empregado");
-            System.out.println("Informe a opcao:");
+            System.out.print("Informe a opção: ");
             opcao = sc.nextInt();
             switch (opcao) {
                 case 0:
-                    System.out.println("Encerrando app...");
+                    System.out.println("\nEncerrando app...");
                     break;
                 case 1:
                     buscarTodos();
                     break;
                 case 2:
-                    System.out.println("\n --Inserir empregado--");
-                    System.out.println("Informe o codigo:");
+                    System.out.println("\nInserir empregado");
+                    System.out.print("Informe o código: ");
                     int codigo = sc.nextInt();
-                    System.out.println("Informe o nome:");
+                    System.out.print("Informe o nome: ");
                     String nome = sc.next();
-                    System.out.println("Informe o salario:");
+                    System.out.print("Informe o salário: ");
                     double salario = sc.nextDouble();
-                    Empregado e = new Empregado(codigo, nome, salario);
+                    Empregado e
+                            = new Empregado(codigo, nome, salario);
                     try {
                         empregadoNegocio.inserir(e);
-                        System.out.println("Empregado foi inserido com sucesso.");
+                        System.out.println("\nEmpregado inserido "
+                                + "com sucesso.");
                     } catch (SQLException sqlex) {
-                        System.out.println("Não foi possivel inserir o empregado no bd");
+                        System.out.println("\nNão foi possivel "
+                                + "inserir o empregado no BD.");
                     } catch (Exception ex) {
                         System.out.println(ex.getMessage());
                     }
                     break;
                 case 3:
-                    System.out.println("alterar empregado ");
-                    System.out.println("informe o codigo:");
+                    System.out.println("\nAlterar empregado");
+                    System.out.print("Informe o código: ");
                     codigo = sc.nextInt();
-                    System.out.println("informe nome:");
+                    System.out.print("Informe o nome: ");
                     nome = sc.next();
-                    System.out.println("informe salario:");
+                    System.out.print("Informe o salário: ");
                     salario = sc.nextDouble();
                     e = new Empregado(codigo, nome, salario);
                     try {
                         empregadoNegocio.alterarPorCodigo(e);
-                        System.out.println("Empregado alterado com sucesso");
+                        System.out.println("\nEmpregado "
+                                + "alterado com sucesso.");
                     } catch (SQLException sqlex) {
-                        System.out.println("Não foi possivel alterar o empregado");
-
+                        System.out.println("\nNão foi possível "
+                                + "alterar o empregado.");
                     } catch (Exception ex) {
                         System.out.println(ex.getMessage());
                     }
                     break;
                 case 4:
-                    System.out.println("excluir empregado");
-                    System.out.println("informe o codigo:");
+                    System.out.println("\nExcluir empregado");
+                    System.out.print("Informe o código: ");
                     codigo = sc.nextInt();
-                    try{
+                    try {
                         empregadoNegocio.excluirPorCodigo(codigo);
-
-                    }catch(SQLException sqlex){
-                        System.out.println("Não foi possivel excluir empregado");
-
-                    }catch(Exception ex){
+                        System.out.println("\nEmpregado excluído "
+                                + "com sucesso.");
+                    } catch (SQLException sqlex) {
+                        System.out.println("\nNão foi possível "
+                                + "excluir o empregado.");
+                    } catch (Exception ex) {
                         System.out.println(ex.getMessage());
                     }
                     break;
                 case 5:
                     System.out.println("\nBuscar um empregado");
-                    System.out.println("Informe o código");
+                    System.out.print("Informe o código: ");
                     codigo = sc.nextInt();
-                    try{
-                        System.out.println(empregadoNegocio.buscarPorCodigo(codigo));
-                    }catch (SQLException sqlex){
-                        System.out.println(sqlex.getMessage());
-                    }catch(Exception ex){
+                    try {
+                        System.out.println(empregadoNegocio.
+                                buscarPorCodigo(codigo));
+                    } catch (SQLException sqlex) {
+                        System.out.println("\nNão foi possível "
+                                + "buscar o empregado.");
+                    } catch (Exception ex) {
                         System.out.println(ex.getMessage());
                     }
                     break;
                 default:
-                    System.out.println("opção inválida");
+                    System.out.println("\nOpção inválida");
             }
         } while (opcao != 0);
-
     }
 
     public static void buscarTodos() {
@@ -106,7 +113,8 @@ public class AulaIntegracaoBDm {
                 System.out.println(e);
             }
         } catch (SQLException sqlex) {
-            System.out.println("\nNão foi possivel buscar " + " os empregados.");
+            System.out.println("\nNão foi possível buscar "
+                    + "os empregados.");
         }
     }
 
