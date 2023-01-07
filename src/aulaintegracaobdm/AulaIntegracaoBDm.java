@@ -91,8 +91,12 @@ public class AulaIntegracaoBDm {
                     System.out.print("Informe o código: ");
                     codigo = sc.nextInt();
                     try {
-                        System.out.println(empregadoNegocio.
-                                buscarPorCodigo(codigo));
+                        e = empregadoNegocio.buscarPorCodigo(codigo);
+                        if (e != null){
+                            System.out.println(e);
+                        }else {
+                            System.out.println("Não foi possivel encontrar empregado com esse código");
+                        }
                     } catch (SQLException sqlex) {
                         System.out.println("\nNão foi possível "
                                 + "buscar o empregado.");
